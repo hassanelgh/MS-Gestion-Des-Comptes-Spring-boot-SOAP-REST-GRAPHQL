@@ -1,4 +1,4 @@
-package org.example.mscompte.entities;
+package org.example.mscompte.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,17 +13,12 @@ import java.util.Date;
 import java.util.List;
 
 
-@Entity
 @Data @AllArgsConstructor @NoArgsConstructor
-public class Compte {
+public class CompteRequestDTO {
 
-    @Id
-    private String id;
     private String nom;
     private String prenom;
     private String description;
-
-    @Column(unique = true)
     private String username;
     private String email;
     private String password;
@@ -34,8 +29,4 @@ public class Compte {
     private String companyName;
     private String location;
     private CompteType type;
-    private Date dateCreation;
-
-    @ManyToMany
-    private List<Compte>  followings;
 }
