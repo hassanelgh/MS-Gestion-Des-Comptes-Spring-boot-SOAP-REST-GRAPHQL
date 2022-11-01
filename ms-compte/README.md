@@ -6,6 +6,7 @@
  - spring data jpa
  - lombok
  - h2 database 
+ - mapstruct
 
 
 ### Entities :
@@ -46,4 +47,25 @@
     </div>
 
 
+### Repositories :
+
+Par l'utilisation de JPA 
+
+ - CompteRepository : [:point_right:](./src/main/java/org/example/mscompte/repositories/CompteRepository.java)
+
+   <div  align="center">
+        <img src="images/img_5.png" alt="">    
+    </div>
+
+
+### Mappers :
+
+Par l'utilisation de mapstruct 
+
+ - CompteMapper : [:point_right:](./src/main/java/org/example/mscompte/mappers/CompteMapper.java)
+
+   <div  align="center">
+        <img src="images/img_6.png" alt="">    
+    </div>
+   
 
