@@ -1,12 +1,17 @@
 # Micro Service Compte 
 
 ### Dependencies :
-    
+
+[pom.xml :point_right:](./pom.xml)
+
  - spring web 
  - spring data jpa
  - lombok
  - h2 database 
  - mapstruct
+ - spring security
+ - javafaker
+
 
 
 ### Entities :
@@ -54,7 +59,7 @@ Par l'utilisation de JPA
  - CompteRepository : [:point_right:](./src/main/java/org/example/mscompte/repositories/CompteRepository.java)
 
    <div  align="center">
-        <img src="images/img_5.png" alt="">    
+        <img src="images/img_5.png" alt="">
     </div>
 
 
@@ -68,4 +73,50 @@ Par l'utilisation de mapstruct
         <img src="images/img_6.png" alt="">    
     </div>
    
+
+### Exceptions :
+
+ > CompteNotFoundException : [:point_right:](./src/main/java/org/example/mscompte/exceptions/CompteNotFoundException.java)
+
+ > FollowingException : [:point_right:](./src/main/java/org/example/mscompte/exceptions/FollowingException.java)
+
+ > UnfollowingException : [:point_right:](./src/main/java/org/example/mscompte/exceptions/UnfollowingException.java)
+  
+
+### Services :
+
+ - CompteService : [:point_right:](./src/main/java/org/example/mscompte/services/CompteService.java)
+
+    <div  align="center">
+        <img src="images/img_7.png" alt="">    
+    </div>
+
+    [CompteServiceImpl :point_right:](./src/main/java/org/example/mscompte/services/CompteService.java)
+
+
+
+### MsCompteApplication : 
+
+   [MsCompteApplication :point_right:](./src/main/java/org/example/mscompte/MsCompteApplication.java)
+
+ - ajouter le passwordEncoder fonction:
+
+    <div  align="center">
+        <img src="images/img_8.png" alt="">    
+    </div>
+   
+ - ajouter les données par CompteService et utiliser faker pour fake données
+
+
+### Application.properties :
+
+ <div  align="center">
+        <img src="images/img_9.png" alt="">    
+ </div>
+   
+ - pour disable security j'ai ajouter :
+    ```
+    spring.autoconfigure.exclude[0]=org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+    ```
+
 

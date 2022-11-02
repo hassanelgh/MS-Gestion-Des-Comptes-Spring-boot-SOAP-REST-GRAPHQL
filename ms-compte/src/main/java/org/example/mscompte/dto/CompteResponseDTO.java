@@ -17,7 +17,6 @@ import java.util.List;
 public class CompteResponseDTO {
     private String id;
     private String nom;
-    private String prenom;
     private String description;
     private String username;
     private String location;

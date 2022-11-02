@@ -1,23 +1,20 @@
 package org.example.mscompte.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.mscompte.enums.CompteType;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 
-@Data @AllArgsConstructor @NoArgsConstructor
+@Data @AllArgsConstructor @NoArgsConstructor @Builder
 public class CompteRequestDTO {
 
     private String nom;
-    private String prenom;
     private String description;
     private String username;
     private String email;
@@ -28,5 +25,8 @@ public class CompteRequestDTO {
     private String status;
     private String companyName;
     private String location;
+
+    @Temporal(TemporalType.DATE)
+    @Enumerated(EnumType.STRING)
     private CompteType type;
 }

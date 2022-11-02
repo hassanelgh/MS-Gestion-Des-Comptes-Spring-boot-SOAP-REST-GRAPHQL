@@ -1,26 +1,25 @@
 package org.example.mscompte.entities;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.mscompte.enums.CompteType;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 
 @Entity
-@Data @AllArgsConstructor @NoArgsConstructor
+@Data @AllArgsConstructor @NoArgsConstructor @Builder
 public class Compte {
 
     @Id
     private String id;
     private String nom;
-    private String prenom;
     private String description;
 
     @Column(unique = true)
@@ -33,9 +32,13 @@ public class Compte {
     private String status;
     private String companyName;
     private String location;
+    @Enumerated(EnumType.STRING)
     private CompteType type;
+
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateCreation;
 
     @ManyToMany
-    private List<Compte>  followings;
+    private List<Compte>  followings=new ArrayList<>();
 }
