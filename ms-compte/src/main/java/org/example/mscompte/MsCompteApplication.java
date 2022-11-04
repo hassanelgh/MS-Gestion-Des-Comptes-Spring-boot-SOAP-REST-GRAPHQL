@@ -9,7 +9,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.util.Streamable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -31,7 +30,7 @@ public class MsCompteApplication {
             Faker faker = new Faker();
 
             // creer des comptes :
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < 20; i++) {
 
                 String fullName = faker.name().fullName();
                 String address = faker.address().fullAddress();
@@ -53,19 +52,28 @@ public class MsCompteApplication {
                 compteService.saveCompte(compteRequestDto);
             }
 
-
             List<CompteResponseDTO> allComptes = compteService.getAllComptes();
             CompteResponseDTO compteResponseDTO=allComptes.get(0);
-            CompteResponseDTO compteResponseDTO1=allComptes.get(1);
-            CompteResponseDTO compteResponseDTO2=allComptes.get(2);
-            CompteResponseDTO compteResponseDTO3=allComptes.get(3);
 
-            compteService.addFollowing(compteResponseDTO.getId(), compteResponseDTO1.getId());
-            compteService.addFollowing(compteResponseDTO.getId(), compteResponseDTO2.getId());
-            compteService.addFollowing(compteResponseDTO1.getId(), compteResponseDTO.getId());
-            compteService.addFollowing(compteResponseDTO1.getId(), compteResponseDTO2.getId());
-            compteService.addFollowing(compteResponseDTO2.getId(), compteResponseDTO3.getId());
+            for( int i = 0; i < allComptes.size()/2; i++ ){
+                CompteResponseDTO compteResponseDTO0=allComptes.get(i);
+                CompteResponseDTO compteResponseDTO1=allComptes.get(allComptes.size()-i-1);
 
+                if(Math.random()>0.25){
+                    compteService.addFollowing(compteResponseDTO0.getId(), compteResponseDTO1.getId());
+                }
+                else if(Math.random()>0.5){
+                    compteService.addFollowing(compteResponseDTO1.getId(), compteResponseDTO0.getId());
+                }
+                else if(Math.random()>0.75 && !compteResponseDTO0.getId().equals(compteResponseDTO.getId())){
+                    compteService.addFollowing(compteResponseDTO1.getId(), compteResponseDTO.getId());
+                }
+                else if(!compteResponseDTO0.getId().equals(compteResponseDTO.getId())){
+                    compteService.addFollowing(compteResponseDTO.getId(), compteResponseDTO1.getId());
+                }
+                compteResponseDTO=compteResponseDTO0;
+
+            }
         };
     }
     @Bean

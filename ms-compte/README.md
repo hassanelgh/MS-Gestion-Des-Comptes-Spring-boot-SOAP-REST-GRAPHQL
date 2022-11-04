@@ -52,6 +52,19 @@
     </div>
 
 
+- `ComptesResponseDTOPage` [:point_right:](./src/main/java/org/example/mscompte/dto/ComptesResponseDTOPage.java) : list dans comptes mais avec pagénation
+
+   <div  align="center">
+        <img src="images/img_3_1.png" alt="">    
+  </div>
+
+
+- `FollowingRequest` [:point_right:](./src/main/java/org/example/mscompte/dto/FollowingRequest.java) : request pour following ou unfollowing
+
+   <div  align="center">
+        <img src="images/img_3_2.png" alt="">    
+    </div>
+
 ### Repositories :
 
 Par l'utilisation de JPA 
@@ -60,7 +73,7 @@ Par l'utilisation de JPA
 
    <div  align="center">
         <img src="images/img_5.png" alt="">
-    </div>
+   </div>
 
 
 ### Mappers :
@@ -70,9 +83,10 @@ Par l'utilisation de mapstruct
  - CompteMapper : [:point_right:](./src/main/java/org/example/mscompte/mappers/CompteMapper.java)
 
    <div  align="center">
-        <img src="images/img_6.png" alt="">    
+        <img src="images/img_6.png" alt="">
     </div>
-   
+
+...
 
 ### Exceptions :
 
@@ -88,7 +102,7 @@ Par l'utilisation de mapstruct
  - CompteService : [:point_right:](./src/main/java/org/example/mscompte/services/CompteService.java)
 
     <div  align="center">
-        <img src="images/img_7.png" alt="">    
+        <img src="images/img_7.png" alt="">
     </div>
 
     [CompteServiceImpl :point_right:](./src/main/java/org/example/mscompte/services/CompteService.java)
@@ -120,3 +134,84 @@ Par l'utilisation de mapstruct
     ```
 
 
+
+### Web:
+
+<details>
+    <summary>
+    RestAPI 
+    </summary>
+
+- CompteRestController : [:point_right:](./src/main/java/org/example/mscompte/web/CompteRestController.java)
+
+
+```java
+@GetMapping("/comptes")
+public List<CompteResponseDTO> getAllComptesRest()
+```
+
+```java
+@GetMapping("/comptes/search")
+public ComptesResponseDTOPage getAllComptesByNameRest(@RequestParam(name = "nom",defaultValue = "") String name,
+                                                          @RequestParam(name = "page",defaultValue = "0") int page,
+                                                          @RequestParam(name = "size",defaultValue = "5") int size
+                                                           )
+```
+
+
+```java
+@GetMapping("/comptes/{idCompte}")
+public CompteDetailResponseDTO getCompteByIdRest(@PathVariable(name = "idCompte") String idCompte)
+```
+
+```java
+@PutMapping("/comptes/{idCompte}")
+public CompteDetailResponseDTO updateCompteRest(@RequestBody CompteRequestDTO compteRequestDTO,
+                                                @PathVariable(name = "idCompte") String idCompte)
+```
+
+
+
+```java
+@PostMapping("/comptes")
+public CompteDetailResponseDTO saveCompteRest(@RequestBody CompteRequestDTO compteRequestDTO)
+```
+
+
+```java
+@DeleteMapping("/comptes/{idCompte}")
+public String deleteCompteRest(@PathVariable(name = "idCompte") String idCompte)
+```
+    
+
+```java
+@GetMapping("/comptes/{idCompte}/followers")
+public ComptesResponseDTOPage getFollowersRest(@PathVariable(name = "idCompte") String idCompte,
+                                                    @RequestParam(name = "page",defaultValue = "0") int page,
+                                                    @RequestParam(name = "size",defaultValue = "5") int size)
+```
+
+```java
+@GetMapping("/comptes/{idCompte}/followings")
+public ComptesResponseDTOPage getFollowingsRest(@PathVariable(name = "idCompte") String idCompte,
+                                                     @RequestParam(name = "page",defaultValue = "0") int page,
+                                                     @RequestParam(name = "size",defaultValue = "5") int size)
+```
+
+```java
+@PutMapping("/comptes/{idCompte}/followings")
+public String followingRest(@PathVariable(name = "idCompte") String idCompte , @RequestBody FollowingRequest following)
+```
+
+
+```java
+@ExceptionHandler(Exception.class)
+public ResponseEntity<String> exceptionsHandler(Exception e)
+```
+    
+
+
+- test : [:point_right:](./REARME_TEST_RESTAPI.md)
+
+
+</details>

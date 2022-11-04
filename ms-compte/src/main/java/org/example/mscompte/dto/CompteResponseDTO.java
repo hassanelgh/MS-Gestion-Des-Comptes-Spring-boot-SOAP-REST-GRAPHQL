@@ -5,10 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.mscompte.enums.CompteType;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -20,4 +17,6 @@ public class CompteResponseDTO {
     private String description;
     private String username;
     private String location;
+    @Enumerated(EnumType.STRING)
+    private CompteType type;
 }

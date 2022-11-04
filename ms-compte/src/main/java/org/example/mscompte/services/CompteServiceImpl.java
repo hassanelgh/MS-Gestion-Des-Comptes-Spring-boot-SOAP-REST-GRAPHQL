@@ -4,18 +4,21 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.mscompte.dto.CompteDetailResponseDTO;
 import org.example.mscompte.dto.CompteRequestDTO;
 import org.example.mscompte.dto.CompteResponseDTO;
+import org.example.mscompte.dto.ComptesResponseDTOPage;
 import org.example.mscompte.entities.Compte;
-import org.example.mscompte.enums.CompteType;
 import org.example.mscompte.exceptions.CompteNotFoundException;
 import org.example.mscompte.exceptions.FollowingException;
 import org.example.mscompte.exceptions.UnfollowingException;
 import org.example.mscompte.mappers.CompteMapper;
 import org.example.mscompte.repositories.CompteRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -45,20 +48,23 @@ public class CompteServiceImpl implements CompteService {
     }
 
     @Override
-    public List<CompteResponseDTO> getAllComptesByName(String name) {
-        List<Compte> comptes =compteRepository.findByNomContainsAndType(name,CompteType.PUBLIC);
-        log.info("get all comptes publoc has name contains '"+name +"' successfully");
-        return tranformListCompteToListCompteResponseDTOs(comptes);
+    public ComptesResponseDTOPage getAllComptesByName(String name, int pageCurrent, int size) {
+        Page<Compte> page =compteRepository.findByNomContains(name,PageRequest.of(pageCurrent,size));
+
+        log.info("get comptes page "+pageCurrent+" & size "+size+" has name contains '"+name +"' successfully");
+        return compteMapper.fromComptesPage(page);
     }
 
     @Override
     public CompteDetailResponseDTO getCompteById(String idCompte) {
         Compte compte =findCompteById(idCompte);
+
         log.info("get compte  '"+idCompte +"' successfully");
 
         CompteDetailResponseDTO compteDetailResponseDTO=compteMapper.fromCompteToCompteDetailResponseDTO(compte);
-        compteDetailResponseDTO.setNbrFollowers(getFollowers(compte.getId()).size());
+        compteDetailResponseDTO.setNbrFollowers(compteRepository.findAllByFollowingsContains(compte).size());
         compteDetailResponseDTO.setNbrFollowings(compte.getFollowings().size());
+
         return compteDetailResponseDTO;
     }
 
@@ -66,18 +72,7 @@ public class CompteServiceImpl implements CompteService {
     public CompteDetailResponseDTO updateCompte(CompteRequestDTO compteRequestDTO, String idCompte) {
         Compte compte =findCompteById(idCompte);
 
-        if(compteRequestDTO.getNom()!=null) compte.setNom(compteRequestDTO.getNom());
-        if(compteRequestDTO.getDescription()!=null) compte.setDescription(compteRequestDTO.getDescription());
-        if(compteRequestDTO.getUsername()!=null) compte.setUsername(compteRequestDTO.getUsername());
-        if(compteRequestDTO.getEmail()!=null) compte.setEmail(compteRequestDTO.getEmail());
-        if(compteRequestDTO.getPassword()!=null) compte.setPassword(passwordEncoder.encode(compteRequestDTO.getPassword()));
-        if(compteRequestDTO.getWebsiteUrl()!=null) compte.setWebsiteUrl(compteRequestDTO.getWebsiteUrl());
-        if(compteRequestDTO.getTwitterUsername()!=null) compte.setTwitterUsername(compteRequestDTO.getTwitterUsername());
-        if(compteRequestDTO.getImageUrl()!=null) compte.setImageUrl(compteRequestDTO.getImageUrl());
-        if(compteRequestDTO.getStatus()!=null) compte.setStatus(compteRequestDTO.getStatus());
-        if(compteRequestDTO.getCompanyName()!=null) compte.setCompanyName(compteRequestDTO.getCompanyName());
-        if(compteRequestDTO.getLocation()!=null) compte.setLocation(compteRequestDTO.getLocation());
-        if(compteRequestDTO.getType()!=null) compte.setType(compteRequestDTO.getType());
+        compteMapper.fromCompteRequestDTOToCompte(compte, compteRequestDTO);
 
         Compte compteSave=compteRepository.save(compte);
 
@@ -98,6 +93,7 @@ public class CompteServiceImpl implements CompteService {
 
 
         log.info("save compte '"+compteRequestDTO.getUsername()+"' successfully");
+
         CompteDetailResponseDTO compteDetailResponseDTO=compteMapper.fromCompteToCompteDetailResponseDTO(compteSave);
         compteDetailResponseDTO.setNbrFollowers(0);
         compteDetailResponseDTO.setNbrFollowings(0);
@@ -108,30 +104,45 @@ public class CompteServiceImpl implements CompteService {
     public String deleteCompte(String idCompte) {
         Compte compte=findCompteById(idCompte);
 
+        // delete relashing  followings & followers  with this compte   :
+        for (int i = 0; i < compte.getFollowings().size(); i++) {
+            unFollowing(compte.getId(),compte.getFollowings().get(i).getId());
+        }
+        List<Compte> followers=compteRepository.findAllByFollowingsContains(compte);
+        for (int i = 0; i < followers.size(); i++) {
+            unFollowing(followers.get(i).getId(),compte.getId());
+
+        }
+
         compteRepository.deleteById(idCompte);
 
         log.info("delete compte '"+idCompte+"' successfully");
+
         return idCompte;
     }
 
     @Override
-    public List<CompteResponseDTO> getFollowers(String idCompte) {
+    public ComptesResponseDTOPage getFollowers(String idCompte, int pageCurrent, int size) {
         Compte compte =findCompteById(idCompte);
 
-        List<Compte> comptesFollowers =compteRepository.findAllByFollowingsContains(compte);
-        log.info("get all comptes followers of '"+idCompte+"' successfully");
-        return tranformListCompteToListCompteResponseDTOs(comptesFollowers);
+        Page<Compte> page =compteRepository.findAllByFollowingsContains(compte,PageRequest.of(pageCurrent,size));
+
+        log.info("get comptes followers of '"+idCompte+"' : page "+pageCurrent+" & size "+size+" successfully");
+
+        return compteMapper.fromComptesPage(page);
     }
 
     @Override
-    public List<CompteResponseDTO> getFollowings(String idCompte) {
+    public ComptesResponseDTOPage getFollowings(String idCompte,int pageCourrent,int size) {
         Compte compte =findCompteById(idCompte);
 
         List<Compte> comptesFollowings =compte.getFollowings();
 
-        log.info("get all comptes followings by '"+idCompte+"' successfully");
+        Page<Compte> page=new PageImpl<>(comptesFollowings,PageRequest.of(pageCourrent,size),comptesFollowings.size());
 
-        return tranformListCompteToListCompteResponseDTOs(comptesFollowings);
+        log.info("get comptes followeings  '"+idCompte+"' : page "+pageCourrent+" & size "+size+" successfully");
+
+        return compteMapper.fromComptesPage(page);
     }
 
     @Override
@@ -172,5 +183,6 @@ public class CompteServiceImpl implements CompteService {
     private List<CompteResponseDTO> tranformListCompteToListCompteResponseDTOs(List<Compte> comptes){
         return comptes.stream().map(compte -> compteMapper.fromCompteToCompteResponseDTO(compte)).collect(Collectors.toList());
     }
+
 
 }
