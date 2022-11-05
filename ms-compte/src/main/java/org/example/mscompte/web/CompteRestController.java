@@ -5,7 +5,7 @@ import org.example.mscompte.exceptions.CompteNotFoundException;
 import org.example.mscompte.exceptions.FollowingException;
 import org.example.mscompte.exceptions.UnfollowingException;
 import org.example.mscompte.services.CompteService;
-import org.springframework.data.domain.Page;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/restapi")
 public class CompteRestController {
 
     private CompteService compteService;

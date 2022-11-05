@@ -1,0 +1,75 @@
+type Query {
+    getAllComptes : [CompteResponseDTO]
+    getAllComptesByName(name:String,page:Int, size:Int) : ComptesResponseDTOPage
+    getCompteById(idCompte:String): CompteDetailResponseDTO
+    getFollowers(idCompte:String,page:Int, size:Int):ComptesResponseDTOPage
+    getFollowings(idCompte:String,page:Int, size:Int):ComptesResponseDTOPage
+}
+
+type Mutation{
+    updateCompte(compteRequestDTO:CompteRequestDTO,idCompte:String): CompteDetailResponseDTO
+    saveCompte(compteRequestDTO:CompteRequestDTO): CompteDetailResponseDTO
+    deleteCompte(idCompte:String): String
+    following(idCompte:String,following:FollowingRequest) : String
+}
+
+
+type CompteResponseDTO{
+    id: String,
+    nom: String,
+    description : String,
+    username: String,
+    location: String,
+    type: String
+}
+
+type ComptesResponseDTOPage {
+
+    page:Int,
+    totalePages:Int,
+    totaleElements: Int,
+    size: Int,
+    compteResponseDTOS:[CompteResponseDTO]
+}
+
+
+type CompteDetailResponseDTO{
+
+   id: String
+   nom : String
+   description : String
+   username : String
+   email : String
+   websiteUrl : String
+   twitterUsername : String
+   imageUrl : String
+   status : String
+   companyName : String
+   location : String
+    type : String
+    dateCreation : String
+    nbrFollowers : Int
+    nbrFollowings : Int
+}
+
+input  CompteRequestDTO{
+   nom:String
+   description : String
+   username :String
+   email : String
+   password : String
+   websiteUrl : String
+   twitterUsername : String
+   imageUrl : String
+   status : String
+   companyName : String
+   location : String
+   type : String
+
+}
+
+
+input FollowingRequest{
+    idCompteFollowing:String,
+    following:Boolean
+}

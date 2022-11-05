@@ -11,6 +11,7 @@
  - mapstruct
  - spring security
  - javafaker
+ - graphql
 
 
 
@@ -213,5 +214,90 @@ public ResponseEntity<String> exceptionsHandler(Exception e)
 
 - test : [:point_right:](./REARME_TEST_RESTAPI.md)
 
+
+</details>
+
+
+
+
+<details>
+    
+ <summary>
+    GRAPHQL
+ </summary>
+
+
+- CompteGraphqlController : [:point_right:](./src/main/java/org/example/mscompte/web/CompteGraphqlController.java)
+
+```java
+@QueryMapping()
+public List<CompteResponseDTO> getAllComptes()
+```
+
+```java
+@QueryMapping()
+public ComptesResponseDTOPage getAllComptesByName(@Argument(name = "name") String name,
+                                                    @Argument(name = "page") int page,
+                                                    @Argument(name = "size") int size
+        )
+```
+
+
+```java
+@QueryMapping
+public CompteDetailResponseDTO getCompteById(@Argument(name = "idCompte") String idCompte)
+```
+
+
+```java
+@MutationMapping
+public CompteDetailResponseDTO updateCompte(@Argument CompteRequestDTO compteRequestDTO, 
+                                            @Argument(name = "idCompte") String idCompte)
+```
+
+
+```java
+@MutationMapping
+public CompteDetailResponseDTO saveCompte(@Argument CompteRequestDTO compteRequestDTO)
+```
+
+```java
+@MutationMapping
+public String deleteCompte(@Argument(name = "idCompte") String idCompte)
+```
+
+
+```java
+@QueryMapping
+public ComptesResponseDTOPage getFollowers(@Argument(name = "idCompte") String idCompte,
+                                            @Argument(name = "page") int page,
+                                            @Argument(name = "size") int size)
+```
+
+
+```java
+@QueryMapping
+public ComptesResponseDTOPage getFollowings(@Argument(name = "idCompte") String idCompte,
+                                            @Argument(name = "page") int page,
+                                            @Argument(name = "size") int size)
+```
+
+
+```java
+@MutationMapping
+public String following(@Argument(name = "idCompte") String idCompte , 
+                        @Argument FollowingRequest following)
+```
+
+
+
+- CompteDataFetcherExceptionResolver : [:point_right:](./src/main/java/org/example/mscompte/exceptions/CompteDataFetcherExceptionResolver.java) : fetcher les exceptions pour l'affichier pour graphQl
+- schema.graphqls : [:point_right:](./src/main/resources/graphql/schema.graphqls)
+
+    <div  align="center">
+        <img src="images/img_23.png" alt="">    
+    </div>
+
+- test : [:point_right:](./REARME_TEST_GRAPHQL.md)
 
 </details>
