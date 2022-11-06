@@ -26,7 +26,7 @@
     Dependencies 
  </summary>
 
-<a name="Dependencies"></a>
+<a name="Dependencies"/>
 
 [pom.xml :point_right:](./pom.xml)
 
@@ -39,18 +39,18 @@
 - javafaker
 - graphql
 - jaxws
--
+- ...
 
 </details>
 
 
+<a name="Entities"/>
 <details>
 
  <summary>
     Entities
  </summary>
 
-<a name="Entities"></a>
 - Compte : [:point_right:](./src/main/java/org/example/mscompte/entities/Compte.java)
 
    <div  align="center">
@@ -60,13 +60,12 @@
 </details>
 
 
-
+<a name="Enums"/>
 <details>
 
  <summary>
     Enums
  </summary>
-<a name="Enums"></a>
 
 - CompteType : [:point_right:](./src/main/java/org/example/mscompte/enums/CompteType.java)
 
@@ -76,14 +75,12 @@
 
 </details>
 
-
+<a name="DTO"/>
 <details>
 
  <summary>
     DTO
  </summary>
-
-<a name="DTO"></a>
 
 - `CompteRequestDTO` [:point_right:](./src/main/java/org/example/mscompte/dto/CompteRequestDTO.java) :
 
@@ -121,15 +118,12 @@
 
 </details>
 
-
+<a name="Repositories"/>
 <details>
 
  <summary>
     Repositories
  </summary>
-
-
-<a name="Repositories"></a>
 
 Par l'utilisation de JPA
 
@@ -143,12 +137,12 @@ Par l'utilisation de JPA
 </details>
 
 
+<a name="Mappers"/>
 <details>
 
  <summary>
     Mappers
  </summary>
-<a name="Mappers"></a>
 
 
 Par l'utilisation de mapstruct
@@ -164,13 +158,12 @@ Par l'utilisation de mapstruct
 </details>
 
 
-
+<a name="Exceptions"/>
 <details>
 
  <summary>
     Exceptions
  </summary>
-<a name="Exceptions"></a>
 
 > CompteNotFoundException : [:point_right:](./src/main/java/org/example/mscompte/exceptions/CompteNotFoundException.java)
 
@@ -180,13 +173,12 @@ Par l'utilisation de mapstruct
 
 </details>
 
-
+<a name="Services"/>
 <details>
 
  <summary>
     Services
  </summary>
-<a name="Services"></a>
 
 - CompteService : [:point_right:](./src/main/java/org/example/mscompte/services/CompteService.java)
 
@@ -200,14 +192,12 @@ Par l'utilisation de mapstruct
 
 </details>
 
-
+<a name="MsCompteApplication"/>
 <details>
 
  <summary>
     MsCompteApplication
  </summary>
-
-<a name="MsCompteApplication"></a>
 
 [MsCompteApplication :point_right:](./src/main/java/org/example/mscompte/MsCompteApplication.java)
 
@@ -224,14 +214,12 @@ Par l'utilisation de mapstruct
 
 
 
-
+<a name="ApplicationProperties"/>
 <details>
 
  <summary>
     Application.properties
  </summary>
-<a name="ApplicationProperties"></a>
-
 
  <div  align="center">
         <img src="images/img_9.png" alt="">
@@ -246,13 +234,11 @@ Par l'utilisation de mapstruct
 
 
 ### Web:
-
+<a name="RestAPI"/>
 <details>
     <summary>
     RestAPI 
     </summary>
-<a name="RestAPI"></a>
-
 
 - CompteRestController : [:point_right:](./src/main/java/org/example/mscompte/web/CompteRestController.java)
 
@@ -330,14 +316,12 @@ public ResponseEntity<String> exceptionsHandler(Exception e)
 
 
 
-
+<a name="Graphql"/>
 <details>
     
  <summary>
     GRAPHQL
  </summary>
-
-<a name="Graphql"></a>
 
 - CompteGraphqlController : [:point_right:](./src/main/java/org/example/mscompte/web/CompteGraphqlController.java)
 
@@ -418,14 +402,12 @@ public String following(@Argument(name = "idCompte") String idCompte ,
 
 
 
-
+<a name="Soap"/>
 <details>
 
  <summary>
     SOAP
  </summary>
-
-<a name="Soap"></a>
 
 - CompteSoap : [:point_right:](./src/main/java/org/example/mscompte/web/CompteSoap.java)
 
