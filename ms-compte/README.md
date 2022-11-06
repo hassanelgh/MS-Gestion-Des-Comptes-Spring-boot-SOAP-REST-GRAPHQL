@@ -1,39 +1,89 @@
 # Micro Service Compte 
 
-### Dependencies :
+##### Table of Contents
+ - [Dependencies](#Dependencies)
+ - [Entities](#Entities)
+ - [Enums](#Enums)
+ - [DTO](#DTO)
+ - [Repositories](#Repositories)
+ - [Mappers](#Mappers)
+ - [Exceptions](#Exceptions)
+ - [Services](#Services)
+ - [MsCompteApplication](#MsCompteApplication)
+ - [Application.properties](#ApplicationProperties)
+ - [Web : RestAPI](#RestAPI)
+ - [Web : Graphql](#Graphql)
+ - [Web : Soap](#Soap)
+
+
+
+### Global:
+
+<a name="Dependencies"></a>
+<details>
+
+ <summary>
+    Dependencies 
+ </summary>
+
+<a name="Dependencies"></a>
 
 [pom.xml :point_right:](./pom.xml)
 
- - spring web 
- - spring data jpa
- - lombok
- - h2 database 
- - mapstruct
- - spring security
- - javafaker
- - graphql
- - jaxws
+- spring web
+- spring data jpa
+- lombok
+- h2 database
+- mapstruct
+- spring security
+- javafaker
+- graphql
+- jaxws
+-
+
+</details>
+
+
+<details>
+
+ <summary>
+    Entities
+ </summary>
+
+<a name="Entities"></a>
+- Compte : [:point_right:](./src/main/java/org/example/mscompte/entities/Compte.java)
+
+   <div  align="center">
+       <img src="images/img.png" alt="" height="400">
+   </div>
+
+</details>
 
 
 
-### Entities :
+<details>
 
- - Compte : [:point_right:](./src/main/java/org/example/mscompte/entities/Compte.java)
-    
-    <div  align="center">
-        <img src="images/img.png" alt="" height="400">
-    </div>
+ <summary>
+    Enums
+ </summary>
+<a name="Enums"></a>
 
-### Enums :
- 
- - CompteType : [:point_right:](./src/main/java/org/example/mscompte/enums/CompteType.java)
+- CompteType : [:point_right:](./src/main/java/org/example/mscompte/enums/CompteType.java)
 
-    <div  align="center">
-        <img src="images/img_1.png" alt="">    
-    </div>
+   <div  align="center">
+       <img src="images/img_1.png" alt="">    
+   </div>
+
+</details>
 
 
-### DTO :
+<details>
+
+ <summary>
+    DTO
+ </summary>
+
+<a name="DTO"></a>
 
 - `CompteRequestDTO` [:point_right:](./src/main/java/org/example/mscompte/dto/CompteRequestDTO.java) :
 
@@ -41,7 +91,7 @@
         <img src="images/img_2.png" alt="">
     </div>
 
-- `CompteResponseDTO` [:point_right:](./src/main/java/org/example/mscompte/dto/CompteResponseDTO.java) : les informations nécessaires des comptes 
+- `CompteResponseDTO` [:point_right:](./src/main/java/org/example/mscompte/dto/CompteResponseDTO.java) : les informations nécessaires des comptes
 
    <div  align="center">
         <img src="images/img_3.png" alt="">
@@ -67,73 +117,131 @@
         <img src="images/img_3_2.png" alt="">    
     </div>
 
-### Repositories :
 
-Par l'utilisation de JPA 
 
- - CompteRepository : [:point_right:](./src/main/java/org/example/mscompte/repositories/CompteRepository.java)
+</details>
 
-   <div  align="center">
-        <img src="images/img_5.png" alt="">
+
+<details>
+
+ <summary>
+    Repositories
+ </summary>
+
+
+<a name="Repositories"></a>
+
+Par l'utilisation de JPA
+
+- CompteRepository : [:point_right:](./src/main/java/org/example/mscompte/repositories/CompteRepository.java)
+
+  <div  align="center">
+       <img src="images/img_5.png" alt="">
+  </div>
+
+
+</details>
+
+
+<details>
+
+ <summary>
+    Mappers
+ </summary>
+<a name="Mappers"></a>
+
+
+Par l'utilisation de mapstruct
+
+- CompteMapper : [:point_right:](./src/main/java/org/example/mscompte/mappers/CompteMapper.java)
+
+  <div  align="center">
+       <img src="images/img_6.png" alt="">
    </div>
-
-
-### Mappers :
-
-Par l'utilisation de mapstruct 
-
- - CompteMapper : [:point_right:](./src/main/java/org/example/mscompte/mappers/CompteMapper.java)
-
-   <div  align="center">
-        <img src="images/img_6.png" alt="">
-    </div>
 
 ...
 
-### Exceptions :
-
- > CompteNotFoundException : [:point_right:](./src/main/java/org/example/mscompte/exceptions/CompteNotFoundException.java)
-
- > FollowingException : [:point_right:](./src/main/java/org/example/mscompte/exceptions/FollowingException.java)
-
- > UnfollowingException : [:point_right:](./src/main/java/org/example/mscompte/exceptions/UnfollowingException.java)
-  
-
-### Services :
-
- - CompteService : [:point_right:](./src/main/java/org/example/mscompte/services/CompteService.java)
-
-    <div  align="center">
-        <img src="images/img_7.png" alt="">
-    </div>
-
-    [CompteServiceImpl :point_right:](./src/main/java/org/example/mscompte/services/CompteService.java)
+</details>
 
 
 
-### MsCompteApplication : 
+<details>
 
-   [MsCompteApplication :point_right:](./src/main/java/org/example/mscompte/MsCompteApplication.java)
+ <summary>
+    Exceptions
+ </summary>
+<a name="Exceptions"></a>
 
- - ajouter le passwordEncoder fonction:
+> CompteNotFoundException : [:point_right:](./src/main/java/org/example/mscompte/exceptions/CompteNotFoundException.java)
 
-    <div  align="center">
-        <img src="images/img_8.png" alt="">    
-    </div>
-   
- - ajouter les données par CompteService et utiliser faker pour fake données
+> FollowingException : [:point_right:](./src/main/java/org/example/mscompte/exceptions/FollowingException.java)
+
+> UnfollowingException : [:point_right:](./src/main/java/org/example/mscompte/exceptions/UnfollowingException.java)
+
+</details>
 
 
-### Application.properties :
+<details>
+
+ <summary>
+    Services
+ </summary>
+<a name="Services"></a>
+
+- CompteService : [:point_right:](./src/main/java/org/example/mscompte/services/CompteService.java)
+
+   <div  align="center">
+       <img src="images/img_7.png" alt="">
+   </div>
+
+  [CompteServiceImpl :point_right:](./src/main/java/org/example/mscompte/services/CompteService.java)
+
+
+
+</details>
+
+
+<details>
+
+ <summary>
+    MsCompteApplication
+ </summary>
+
+<a name="MsCompteApplication"></a>
+
+[MsCompteApplication :point_right:](./src/main/java/org/example/mscompte/MsCompteApplication.java)
+
+- ajouter le passwordEncoder fonction:
+
+   <div  align="center">
+       <img src="images/img_8.png" alt="">    
+   </div>
+
+- ajouter les données par CompteService et utiliser faker pour fake données
+
+
+</details>
+
+
+
+
+<details>
+
+ <summary>
+    Application.properties
+ </summary>
+<a name="ApplicationProperties"></a>
+
 
  <div  align="center">
-        <img src="images/img_9.png" alt="">    
+        <img src="images/img_9.png" alt="">
  </div>
-   
- - pour disable security j'ai ajouter :
-    ```
-    spring.autoconfigure.exclude[0]=org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
-    ```
+
+- pour disable security j'ai ajouter :
+   ```
+   spring.autoconfigure.exclude[0]=org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+   ```
+</details>
 
 
 
@@ -143,6 +251,8 @@ Par l'utilisation de mapstruct
     <summary>
     RestAPI 
     </summary>
+<a name="RestAPI"></a>
+
 
 - CompteRestController : [:point_right:](./src/main/java/org/example/mscompte/web/CompteRestController.java)
 
@@ -227,6 +337,7 @@ public ResponseEntity<String> exceptionsHandler(Exception e)
     GRAPHQL
  </summary>
 
+<a name="Graphql"></a>
 
 - CompteGraphqlController : [:point_right:](./src/main/java/org/example/mscompte/web/CompteGraphqlController.java)
 
@@ -314,6 +425,7 @@ public String following(@Argument(name = "idCompte") String idCompte ,
     SOAP
  </summary>
 
+<a name="Soap"></a>
 
 - CompteSoap : [:point_right:](./src/main/java/org/example/mscompte/web/CompteSoap.java)
 
