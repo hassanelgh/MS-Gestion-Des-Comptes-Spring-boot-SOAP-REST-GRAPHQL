@@ -7,11 +7,13 @@ import org.example.mscompte.enums.CompteType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 import java.util.List;
 
 
 @Data @AllArgsConstructor @NoArgsConstructor
+@XmlRootElement(name = "compteDetailResponse")
 public class CompteDetailResponseDTO {
     private String id;
     private String nom;

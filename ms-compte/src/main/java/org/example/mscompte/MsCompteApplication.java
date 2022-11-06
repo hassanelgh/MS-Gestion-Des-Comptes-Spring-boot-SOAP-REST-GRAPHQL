@@ -5,21 +5,28 @@ import org.example.mscompte.dto.CompteRequestDTO;
 import org.example.mscompte.dto.CompteResponseDTO;
 import org.example.mscompte.enums.CompteType;
 import org.example.mscompte.services.CompteService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.remoting.jaxws.SimpleJaxWsServiceExporter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.net.UnknownHostException;
 import java.util.List;
-import java.util.Locale;
 
 @SpringBootApplication
 public class MsCompteApplication {
 
-    public static void main(String[] args) {
+    @Value("${local.server.port}")
+    private static int serverPort;
+
+    public static void main(String[] args) throws UnknownHostException {
         SpringApplication.run(MsCompteApplication.class, args);
+
+
     }
 
 

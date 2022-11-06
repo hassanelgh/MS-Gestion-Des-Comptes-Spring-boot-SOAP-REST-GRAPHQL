@@ -12,6 +12,7 @@
  - spring security
  - javafaker
  - graphql
+ - jaxws
 
 
 
@@ -299,5 +300,80 @@ public String following(@Argument(name = "idCompte") String idCompte ,
     </div>
 
 - test : [:point_right:](./REARME_TEST_GRAPHQL.md)
+
+</details>
+
+
+
+
+
+
+<details>
+
+ <summary>
+    SOAP
+ </summary>
+
+
+- CompteSoap : [:point_right:](./src/main/java/org/example/mscompte/web/CompteSoap.java)
+
+```java
+  @WebMethod()
+  public List<CompteResponseDTO> getAllComptes()
+```
+```java
+  @WebMethod()
+  public ComptesResponseDTOPage getAllComptesByName(@WebParam(name = "name") String name,
+                                                      @WebParam(name = "page") int page,
+                                                      @WebParam(name = "size") int size)
+```
+
+```java
+  @WebMethod
+  public CompteDetailResponseDTO getCompteById(@WebParam(name = "idCompte") String idCompte)
+  }
+```
+
+
+```java
+  @WebMethod
+  public CompteDetailResponseDTO updateCompte(@WebParam(name = "compteRequest") CompteRequestDTO compteRequestDTO, @WebParam(name = "idCompte") String idCompte)
+```
+
+```java
+  @WebMethod
+  public CompteDetailResponseDTO saveCompte(@WebParam(name = "compteRequest") CompteRequestDTO compteRequestDTO)
+```
+
+
+```java
+  @WebMethod
+  public String deleteCompte(@WebParam(name = "idCompte") String idCompte)
+```
+
+```java
+  @WebMethod
+  public ComptesResponseDTOPage getFollowers(@WebParam(name = "idCompte") String idCompte,
+                                              @WebParam(name = "page") int page,
+                                              @WebParam(name = "size") int size)
+```
+
+
+```java
+  @WebMethod()
+  public ComptesResponseDTOPage getFollowings(@WebParam(name = "idCompte") String idCompte,
+                                              @WebParam(name = "page") int page,
+                                              @WebParam(name = "size") int size)
+```
+
+
+```java
+  @WebMethod()
+  public String following(@WebParam(name = "idCompte") String idCompte , @WebParam(name = "following") FollowingRequest following)
+```
+
+- MyConfi : [:point_right:](./src/main/java/org/example/mscompte/conf/MyConfig.java) : lancer le serveur
+
+- test : [:point_right:](./REARME_TEST_SOAP.md)
 
 </details>
