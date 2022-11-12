@@ -186,7 +186,7 @@ Par l'utilisation de mapstruct
        <img src="images/img_7.png" alt="">
    </div>
 
-  [CompteServiceImpl :point_right:](./src/main/java/org/example/mscompte/services/CompteService.java)
+  [CompteServiceImpl :point_right:](./src/main/java/org/example/mscompte/services/CompteServiceImpl.java)
 
 
 
